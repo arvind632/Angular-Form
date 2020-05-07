@@ -1,0 +1,11 @@
+.col-custom-five {
+    position: relative;
+    float: left;
+    width: 14.28%;
+    height: 50px;
+    border: 1px solid black;
+    text-align: center; 
+    color:#fff;
+  }
+  .booked{background: red;cursor:not-allowed;padding:10px;height: 50px; }
+  .available{background: green;cursor: pointer;padding:10px;height: 50px;}

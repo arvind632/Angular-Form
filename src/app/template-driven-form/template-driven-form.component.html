@@ -1,0 +1,30 @@
+<h3>Template Driven Form</h3>
+<div class="container">
+    <form #registration="ngForm" (ngSubmit)="submitRegistration(registration.value)">
+        <div class="form-group col-6">
+            <label for="name">Name</label>
+            <input type="text" class="form-control"  required  [(ngModel)]="model.name" name="name"
+             #name="ngModel">
+            <div  *ngIf="name.invalid && (name.dirty || name.touched)"
+                 class="alert alert-danger">
+              Name is required
+            </div>
+        </div>
+
+        <div class="form-group col-6">
+            <label for="name">Email</label>
+            <input type="text" class="form-control"   required  [(ngModel)]="model.email" name="email"
+             #email="ngModel">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" 
+                 class="alert alert-danger">
+              Email is required
+            </div>
+        </div>
+
+    
+    
+        
+        <button type="submit" class="btn btn-success" [disabled]="!registration.form.valid">Submit</button>
+   
+   </form>
+</div>

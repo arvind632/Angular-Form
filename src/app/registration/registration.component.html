@@ -1,0 +1,58 @@
+<div class="container">
+
+  
+
+    
+   <div class="row">
+       <div class="col-6">
+
+        <h3>Template Driven  Forms</h3>
+        <form #registration="ngForm" (ngSubmit)="SubmitRegistrationForm(registration.value)">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" name='fname' ngModel>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="submit" class=" btn btn-primary">
+          </div>
+
+        </form>
+
+    <h3>Reactive Forms</h3>
+    <form [formGroup]="heroForm1" #formDir="ngForm">
+  
+      <div [hidden]="formDir.submitted">
+  
+        
+          <div class="form-group">
+  
+            <label for="name">Name</label>
+            <input id="name" class="form-control"
+                  formControlName="name" required >
+  
+            <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="alert alert-danger">
+  
+              <div *ngIf="name.errors.required">
+                Name is the required.
+              </div>
+              <div *ngIf="name.errors.minlength">
+                Name must be at least 4 characters long.
+              </div>
+              
+            </div>
+          </div>
+  
+  
+        <button type="submit" [disabled]="!heroForm1.valid"  class="btn btn-default">Submit</button>
+        <button type="button" class="btn btn-default"
+               (click)="formDir.resetForm({})">Reset</button>
+      </div>
+    </form>
+    </div>
+    </div>
+  
+    
+  </div>
+  
+  
