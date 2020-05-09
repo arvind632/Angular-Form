@@ -1,4 +1,10 @@
-# MyApp
+# Best Example of a Reactive form in Angular 9
+
+Hi Friends,
+As you know in Angular we can create two types of Form Reactive and Template Driven , so here is the example of a Reactive Form
+<h3>Reactive form with Group, Array, and validations.</h3>
+<a href="https://nnvnbdjmjde.angular.stackblitz.io/" target="_blank"> Demo Link </a>
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
 
