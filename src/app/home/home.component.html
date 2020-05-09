@@ -23,99 +23,66 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Reservation  Modal -->
 <div class="modal" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Available Seat :</h4>
+        <h4 class="modal-title">Seat Reservation (allowed upto 7 )</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <!-- Modal body -->
       <div class="modal-body">
-        <form [formGroup]="reservationForm"  (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="usr">Select no of seats:</label>
-            <select class="form-control selectSeat"   (change)="addPersion($event)" formControlName="seat" required>
-              <option value="">Sealect Seat </option>
-              <option *ngFor="let i of seats" value="{{i}}">{{i}}</option>
-            </select>
-          </div>
-
-          <div class="form-group"   formGroupName="address">
-              <h3> Address</h3>
-              <label>City</label>
-              <input type="text" class="form-control" formControlName="city" >
-
-              <label>Zipcode</label>
-              <input type="text" class="form-control" formControlName="zipcode">
-
-          </div>
-
-
-          <div formArrayName="peoples">
-             <h3>Add people</h3>
-             <button class="btn btn-sm btn-info" (click)="addpeople()"> + Add People </button>
-             
-
-             <div class="form-gropu" *ngFor="i of peoples.controls; let i = index">
-                 <label>Add Persion-{{i+1}}</label>
-                 <input type="text" class="form-control" [formControlName]="i">
-                 <button class="btn btn-sm btn-warning" (click)="removepeople(i)"> - Remove </button>
-             </div>
-
-          </div>
+        <form [formGroup]="reservationForm"  (ngSubmit)="onSubmit()" #form1="ngForm">
           
-          <div formArrayName="names">
-            <div class="form-group" *ngFor="let i of names.controls; let n = index"> 
-              <label for="usr">Enter Persion - {{n+1}} </label> 
-              <input type="text" [formControlName]="n" class="form-control">
+            <div *ngIf="form1.submitted" class="alert alert-success alert-dismissible">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Success!</strong> 
             </div>
 
-            <div class="form-group">
-              <button type="submit"  [disabled]="!reservationForm.valid"  class="btn btn-primary">Submit</button>
+
+          
+          <div [hidden]="form1.submitted">
+         
+         <div formArrayName="peoples">
+            <div class="row"  *ngFor="i of peoples.controls; let i = index">
+              <div class="col-sm-3"><label> Traveler -{{i+1}}</label></div>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" [formControlName]="i">
+                
+              </div>
+              <div class="col-sm-3"><button type="button" class="btn btn-sm btn-danger" (click)="removepeople(i)"> - Remove </button></div>
+              <br/>
+              <br/>
             </div>
-
-            <h1>{{ reservationForm.value | json}}</h1>
-
             
+            <div class="row">
+              <div class="col-sm-12">
+                <button *ngIf="peoples.length <7 " type="button" class="btn btn-sm btn-info" (click)="addpeople()"> + Add Traveler </button>
+              </div>
+            </div>
+            
+            <br/>
 
+            <div class="row">
+                <div class="col-sm-12">
+                  <button [disabled]="!reservationForm.valid" class="btn btn-primary btn-sm"> Submit </button>
+                </div>
+            </div>
+          </div>
         </div>
+          
         </form> 
+        <div class="row"> <div class="col-12"> {{reservationForm.value|json}} </div></div>
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
+
+      
 
     </div>
   </div>

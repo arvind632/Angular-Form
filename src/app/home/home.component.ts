@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { ApiService } from '../api.service';
-import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray,Validators } from '@angular/forms';
 import { Seat } from '../seat';
 
 @Component({
@@ -12,15 +12,15 @@ import { Seat } from '../seat';
 export class HomeComponent implements OnInit {
 
   
- // reservationData = { seat:'', name:''};
+ 
   reservationForm : FormGroup;
   
   persions = [];
-  totalNoOfSeat = 80;
+  
   totalSeats = [];
-  seats = ["1", "2", "3", "4", "5", "6", "7"];
+  
 
-  persionHtml = [];
+  
 
 
   
@@ -28,18 +28,11 @@ export class HomeComponent implements OnInit {
   constructor( private formbuilder: FormBuilder, private apiService: ApiService) { 
     
     this.reservationForm = formbuilder.group({
-      seat : new FormControl(),
-      name: new FormControl(),
-      address:formbuilder.group({
-         city:new FormControl(),
-         zipcode:new FormControl(),
-      }),
+      
       peoples: formbuilder.array([
-        this.formbuilder.control(''),
+        this.formbuilder.control('',Validators.required),
       ]),
-      names: formbuilder.array([
-        this.formbuilder.control(''),
-      ])
+      
     });
     
     
@@ -53,58 +46,43 @@ export class HomeComponent implements OnInit {
 
   
   ngOnInit(): void {
+     this.getseat();
+  }
+
+  getseat(){
     
     this.apiService.getSeat().subscribe((result)=>{
       console.log(result);
       this.totalSeats = result;
     });
-
   }
 
-  get names() {
-    return this.reservationForm.get('names') as FormArray;
-  }
-
-  addPersion(event: any){
-        let seat = event.target.value;
-        if(seat>0){
-        for(let i=1;i<seat;i+=1){
-             this.names.push(this.formbuilder.control(''));
-          }
-        }
-  }
-
+  
+  
   onSubmit() {
          console.log(this.reservationForm.value);
-          return false;
-
-
-       /*
-       for(let i=1;i<=data.seat;i++){
-        this.persions.push(data["persion["+i+"]"]);
-        }
-
-        console.log(this.persions);
-        */
-
+         this.persions = this.reservationForm.value;
+         
+          
       
-      /* 
+      
         this.apiService.register(this.persions).subscribe(
                 data => {
                      console.log('success');
                       console.log(data);
+                      this.getseat();
                 },
                 error => {
                     console.log('error');
                 }
         );
-      */
+      
         
 }
 
 
 addpeople(){
-    this.peoples.push(this.formbuilder.control(''));
+    this.peoples.push(this.formbuilder.control('', Validators.required));
 }
 
 removepeople(i:number){
